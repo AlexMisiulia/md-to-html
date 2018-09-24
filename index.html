@@ -29,7 +29,7 @@
         xhr.open('POST', 'https://api.github.com/markdown', true);
         xhr.setRequestHeader('Content-type', 'application/json');
         xhr.onload = function() {
-            document.getElementById("html-output").innerHTML = this.responseText;
+            document.getElementById("html-output").innerText = this.responseText;
         };
         var data = JSON.stringify({"text": mdText, "mode": "markdown"});
         xhr.send(data);
