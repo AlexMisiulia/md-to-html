@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
 
-	<h2>Hello world</h2>
+<head>
+    <title></title>
+    <style type="text/css">
+    .flex {
+        display: flex;
+        height: 100%;
+        align-items: center;
+    }
+
+
+    .form {
+        width: 40%;
+        min-height: 500px;
+        border: 1px solid #AAA;
+        white-space: pre;
+    }
+    </style>
+    <script type="text/javascript">
+    function mdToHtml() {
+        var input = document.getElementById("md-input").value;
+        sendGithubApiRequest(input);
+    }
+
+    function sendGithubApiRequest(mdText) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://api.github.com/markdown', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.onload = function() {
+            document.getElementById("html-output").innerHTML = this.responseText;
+        };
+        var data = JSON.stringify({"text": mdText, "mode": "markdown"});
+        xhr.send(data);
+    }
+    </script>
+</head>
+
+<body>
+    <div class="flex">
+        <textarea  id="md-input" class="form" type="text">Write your md here</textarea>
+        <div>
+            <button onclick="mdToHtml()">Convert</button>
+        </div>
+        <div id="html-output" class="form">
+        </div>
+    </div>
 </body>
+
 </html>
